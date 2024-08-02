@@ -100,11 +100,11 @@ export default function Header({ title, goBack }) {
     const navigate = useNavigate()
 
     const startComponent = (
-        <Stack direction='row' sx={{ gap: 2, alignItems: 'center' }}>
+        <Stack direction='row' sx={{ gap: 1, alignItems: 'center' }}>
             {goBack && <IconButton
                 onClick={() => navigate(-1)}
             >
-                <ArrowBackIcon sx={{ fontSize: '36px' }} />
+                <ArrowBackIcon sx={{ fontSize: '30px' }} />
             </IconButton>}
             {!title && <Logo />}
             {title && <Heading>{title}</Heading>}

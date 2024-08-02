@@ -37,11 +37,11 @@ const PageStack = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export default function PageItemContainer({ children, url, sx }) {
+export default function PageItemContainer({ children, url, sx, ...props }) {
     return (
         <Grid
             item
-            xs={6}
+            xs={4}
             sm={4}
             md={2.4}
         >
@@ -52,6 +52,7 @@ export default function PageItemContainer({ children, url, sx }) {
                     height: 'auto', // Remove height to make the aspect ratio work correctly
                     ...sx
                 }}
+                {...props}
             >
                 {children}
             </PageStack>

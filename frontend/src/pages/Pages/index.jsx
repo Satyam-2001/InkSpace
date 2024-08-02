@@ -52,7 +52,7 @@ export default function Pages() {
 
     return (
         <DynamicContainer header={header}>
-            <Grid container spacing={{ xs: 1.5, sm: 2, md: 2.5 }} sx={{p: 1}} >
+            <Grid container spacing={{ xs: 1, sm: 1.5 }} sx={{ p: { xs: 0.25, sm: 1 } }} >
                 <AddPageItem />
                 {images.map((props) => <PageItem key={props.name} {...props} />)}
             </Grid>

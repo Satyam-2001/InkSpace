@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import Container, { Root } from '../../../components/layouts/Container'
 import { HeaderContainer } from '../../../components/layouts/Header'
-import { Box, Grid, IconButton, Stack, Typography, useMediaQuery } from '@mui/material'
+import { Box, Divider, Grid, IconButton, InputAdornment, Stack, Typography, useMediaQuery } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Heading, elevation } from '../../../theme/styles';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,9 @@ import UploadIcon from '@mui/icons-material/Upload';
 
 import DynamicContainer from '../../../components/layouts/DynamicContainer';
 import useImageInput from '../../../hooks/useImageInput';
-import InputField from '../../../components/InputField';
+import MarginInputField from '../components/MarginInputField';
+import InputField from '../components/InputField';
+import HeightIcon from '@mui/icons-material/Height';
 
 const initialState = {
     url: '',
@@ -49,7 +51,7 @@ function PageImageUpload({ imageUrl, uploadImage }) {
                 position: imageUrl ? 'relative' : 'static',
                 bgcolor: imageUrl ? 'background.paper' : 'action.active',
                 width: { xs: '100%', md: '35%' },
-                height: { xs: '60vh', md: '100%' },
+                height: { xs: '50vh', md: '100%' },
                 borderRadius: '16px',
                 border: imageUrl ? 0 : 2,
                 borderColor: 'primary.main',
@@ -81,28 +83,51 @@ function PageImageUpload({ imageUrl, uploadImage }) {
                 />
             </>}
             {!imageUrl && <Fragment>
-                <UploadIcon sx={{ fontSize: '5rem', color: 'primary.main' }} />
+                <UploadIcon sx={{ fontSize: '5rem', color: 'white' }} />
+                <Typography sx={{ color: 'white' }}>Upload Page</Typography>
             </Fragment>}
         </Stack>
     )
 }
 
+const marginItem = [
+    {
+        label: 'Top Margin',
+        rotate: '0',
+    },
+    {
+        label: 'Bottom Margin',
+        rotate: '180',
+    },
+    {
+        label: 'Left Margin',
+        rotate: '270',
+    },
+    {
+        label: 'Right Margin',
+        rotate: '90',
+    }
+]
+
 function PageCongiguration() {
     return (
-        <Stack sx={{ gap: 2, overflow: 'auto', flex: 1, pb: 1 }}>
-            <Heading sx={{ fontSize: { xs: '1.5rem' } }}>Page Configuration</Heading>
-            <Grid container spacing={1.5} px={1}>
-                <Grid item xs={12} md={6}>
-                    <InputField label='Top Margin' />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <InputField label='Bottom Margin' />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <InputField label='Left Margin' /> {/* Adjusted label */}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <InputField label='Right Margin' /> {/* Adjusted label */}
+        <Stack sx={{ gap: { xs: 2.5, md: 3.5 }, overflow: 'auto', flex: 1, pb: 1 }}>
+            <Heading sx={{ fontSize: { xs: '1.3rem' }, px: 0.5 }}>Page Configuration</Heading>
+            <Grid container rowSpacing={2} columnSpacing={1.5} px={0.4}>
+                {marginItem.map((prop) => (
+                    <Grid key={prop.label} item xs={6} md={6}>
+                        <MarginInputField {...prop} />
+                    </Grid>
+                ))}
+                <Grid item xs={12} md={12}>
+                    <InputField
+                        type='number'
+                        label='Line Height'
+                        InputProps={{
+                            endAdornment: <InputAdornment position="end"><Typography>px</Typography></InputAdornment>,
+                            startAdornment: <InputAdornment position="start"><HeightIcon /></InputAdornment>,
+                        }}
+                    />
                 </Grid>
             </Grid>
         </Stack>
@@ -116,7 +141,7 @@ export default function CreatePage() {
     const [page, setPage] = useState(initialState)
 
     const header = {
-        title: `Create Page`,
+        title: `Add Page`,
         goBack: true
     }
 

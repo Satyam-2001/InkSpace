@@ -10,7 +10,7 @@ function NavigationItem({ to, Icon, name }) {
             {({ isActive }) => (
                 <Stack
                     sx={{
-                        p: 1,
+                        p: 0.6,
                         borderRadius: '16px',
                         justifyContent: 'center', 
                         alignItems: 'center',
@@ -18,7 +18,7 @@ function NavigationItem({ to, Icon, name }) {
                         boxShadow: elevation(isActive ? -1 : 1),
                     }}
                 >
-                    <Icon sx={{ fontSize: '1.6rem', color: isActive ? 'white' : 'text.primary' }} />
+                    <Icon sx={{ fontSize: '1.5rem', color: isActive ? 'white' : 'text.primary' }} />
                     <Typography sx={{ color: isActive ? 'white' : 'text.primary', fontSize: '0.58rem' }}>{name}</Typography>
                 </Stack>
             )}

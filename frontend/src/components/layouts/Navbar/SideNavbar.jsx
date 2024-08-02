@@ -75,14 +75,14 @@ function NavigationItem({ name, to, Icon, expand }) {
                     {!expand && <Icon
                         sx={{
                             fontSize: '25px',
-                            color: isActive ? 'primary.main' : 'text.primary',
+                            color: isActive ? 'white' : 'text.primary',
                         }}
                     />}
                     {expand && <Typography
                         variant='body1'
                         sx={{
                             fontSize: '1rem',
-                            color: isActive ? 'primary.main' : 'text.primary',
+                            color: isActive ? 'white' : 'text.primary',
                         }}
                     >
                         {name}
@@ -115,7 +115,7 @@ export default function SideNavbar() {
                 boxShadow: elevation(),
                 bgcolor: 'background.paper',
                 borderRadius: '12px',
-                width: expand ? '250px' : '80px',
+                width: expand ? '280px' : '80px',
                 transition,
                 overflow: 'hidden',
             }}
