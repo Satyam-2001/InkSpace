@@ -12,7 +12,7 @@ export default function PageItem({ url, name }) {
                     left: 0,
                     right: 0,
                     color: '#fff',
-                    fontSize: '18px',
+                    fontSize: {xs: '13px', md: '18px'},
                     textAlign: 'center',
                     padding: '10px',
                     textShadow: '0px 1px 0 #000',
