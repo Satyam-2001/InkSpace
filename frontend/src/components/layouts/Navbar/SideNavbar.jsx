@@ -94,7 +94,7 @@ function NavigationItem({ name, to, Icon, expand }) {
 }
 
 export default function SideNavbar() {
-    const [expand, setExpand] = useState(false)
+    const [expand, setExpand] = useState(localStorage.getItem('sidebar_expand') === 'true')
     const toggleExpandHandler = () => {
         setExpand(prop => {
             localStorage.setItem('sidebar_expand', !prop)

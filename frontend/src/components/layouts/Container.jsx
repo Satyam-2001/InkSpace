@@ -10,6 +10,7 @@ export const Root = styled(Stack)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     height: '100vh',
     width: '100vw',
+    overflow: 'hidden',
 }))
 
 export default function Container({ hideHeader, hideBottomNavbar, hideSideNavbar, children }) {

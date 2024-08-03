@@ -1,6 +1,6 @@
 import { Button, Grid, IconButton, Modal, Stack, Typography } from '@mui/material'
 import React, { createContext, useRef, useState } from 'react'
-import { ModalStack, elevation } from '../../theme/styles'
+import { APP_BAR_HEIGHT, ModalStack, elevation } from '../../theme/styles'
 import DynamicContainer from '../layouts/DynamicContainer'
 import ReactCrop, {
     centerCrop,
@@ -16,6 +16,7 @@ import Rotate90DegreesCwOutlinedIcon from '@mui/icons-material/Rotate90DegreesCw
 
 import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from './canvasPreview'
+import { HeaderContainer, HeaderContent } from '../layouts/Header'
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
     return centerCrop(
@@ -37,8 +38,8 @@ function ToolButton({ name, Icon, ...props }) {
     return (
         <>
             <Button
-            
                 fullWidth
+                size='large'
                 sx={{ boxShadow: elevation(), color: 'text.primary', display: { xs: 'none', md: 'flex' } }}
                 startIcon={<Icon sx={{ fontSize: '24px' }} />}
                 {...props}
@@ -57,13 +58,13 @@ function EditTools({ setRotate, setCrop, saveHandler }) {
         <Stack
             direction='row'
             sx={{
-                pb: 0.5,
+                pb: 1,
                 pt: 1,
                 px: 1,
                 gap: 2,
                 // width: { md: '40%' },
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'space-evenly',
             }}
         >
             <ToolButton name='Crop' Icon={CropIcon} onClick={setCrop} />
@@ -72,7 +73,7 @@ function EditTools({ setRotate, setCrop, saveHandler }) {
             {/* <Button fullWidth size='large' sx={{ boxShadow: elevation() }}>
                 Cancel
             </Button> */}
-            <Button fullWidth variant='contained' onClick={saveHandler} sx={{ boxShadow: elevation() }}>
+            <Button fullWidth variant='contained' onClick={saveHandler} sx={{ boxShadow: elevation(), maxWidth: '30%' }}>
                 Done
             </Button>
         </Stack>
@@ -177,69 +178,75 @@ export default function ImageEditor({ open, image, onSave = () => { }, onClose =
 
     return (
         <Modal open={open} onClose={onClose}>
-            <ModalStack sx={{ height: '100%', width: '100%', bgcolor: 'rgba(0, 0, 0, 0.8)' }}>
-                <DynamicContainer
+            <ModalStack sx={{ height: '100%', width: '100%', bgcolor: 'rgba(0, 0, 0, 0.8)', pt: APP_BAR_HEIGHT }}>
+                <HeaderContainer sx={{ bgcolor: 'transparent' }}>
+                    <HeaderContent goBack={onClose} title='Edit Image' />
+                </HeaderContainer>
+                {/* <DynamicContainer
                     hideBottomNavbar
                     header={{
                         title: 'Edit Image',
                         goBack: onClose
                     }}
+                > */}
+                <Stack
+                    sx={{
+                        flex: 1,
+                        gap: { md: 3 },
+                    }}
                 >
                     <Stack
-                        // direction={{ md: 'row' }}
                         sx={{
                             flex: 1,
-                            gap: { md: 3 },
+                            alignItems: 'center',
+                            justifyContent: { xs: 'center', md: undefined },
                         }}
                     >
+
                         <Stack
+                            component={ReactCrop}
+                            crop={crop}
+                            onChange={(_, percentCrop) => setCrop(percentCrop)}
+                            onComplete={(c) => setCompletedCrop(c)}
+                            aspect={aspect}
+                            minHeight={100}
                             sx={{
+                                maxHeight: { xs: '78vh', md: '75vh' },
+                                width: 'auto', // Allow width to adjust based on content (img)
                                 flex: 1,
-                                alignItems: 'center',
-                                justifyContent: { xs: 'center', md: undefined },
+                                border: 1,
+                                borderColor: 'divider',
+                                boxShadow: elevation(),
+                                display: 'flex',
+                                alignItems: 'center', // Center the image vertically if needed
+                                justifyContent: 'center', // Center the image horizontally if needed
                             }}
                         >
-                            <Stack
-                                component={ReactCrop}
-                                crop={crop}
-                                onChange={(_, percentCrop) => setCrop(percentCrop)}
-                                onComplete={(c) => setCompletedCrop(c)}
-                                aspect={aspect}
-                                // minWidth={400}
-                                minHeight={100}
-                                sx={{
-                                    maxHeight: { xs: '80vh', md: '75vh' },
-                                    border: 1,
-                                    borderColor: 'divider',
-                                    boxShadow: elevation(),
-                                    // transform: `scale(${scale}) rotate(${rotate}deg)`
-                                }}
-                            // circularCrop
-                            >
-                                <img
-                                    ref={imgRef}
-                                    alt="Crop me"
-                                    src={image}
-                                    style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-                                    onLoad={onImageLoad}
-                                />
-                            </Stack>
+                            <img
+                                ref={imgRef}
+                                alt="Crop me"
+                                src={image}
+                                style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+                                onLoad={onImageLoad}
+                            />
                         </Stack>
-                        <canvas
-                            ref={previewCanvasRef}
-                            style={{
-                                display: 'none',
-                                border: '1px solid black',
-                                objectFit: 'contain',
-                                width: completedCrop?.width || 0,
-                                height: completedCrop?.height || 0,
-                            }}
-                        />
-                        <EditTools setCrop={handleToggleAspectClick} setRotate={setRotate} saveHandler={saveHandler} />
                     </Stack>
-                </DynamicContainer>
+                    <canvas
+                        ref={previewCanvasRef}
+                        style={{
+                            display: 'none',
+                            border: '1px solid black',
+                            objectFit: 'contain',
+                            width: completedCrop?.width || 0,
+                            height: completedCrop?.height || 0,
+                        }}
+                    />
+                    <EditTools setCrop={handleToggleAspectClick} setRotate={setRotate} saveHandler={saveHandler} />
+                </Stack>
+                {/* </DynamicContainer> */}
+
             </ModalStack>
 
-        </Modal>
+        </Modal >
     )
 }

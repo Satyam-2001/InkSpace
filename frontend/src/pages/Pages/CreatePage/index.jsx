@@ -45,6 +45,7 @@ export default function CreatePage() {
             <Stack
                 overflow='auto'
                 sx={{
+                    flex: 1,
                     px: 0.5,
                     pt: 0.5,
                     gap: { xs: 1.5, md: 3 },
@@ -65,12 +66,19 @@ export default function CreatePage() {
     }
 
     return (
-        <DynamicContainer header={header} hideBottomNavbar>
+        <DynamicContainer header={header} hideBottomNavbar sx={{ overflow: {xs: 'auto', md: 'hidden' } }}>
             <FormikProvider value={formik}>
                 <Outlet />
                 <Stack
                     direction={{ md: 'row' }}
-                    sx={{ flex: 1, gap: 3, px: { md: 1 }, py: { md: 1 }, pb: { xs: 0.5, md: 0 } }}
+                    sx={{
+                        flex: 1,
+                        gap: 3,
+                        px: { md: 1 },
+                        pt: { md: 1 },
+                        pb: { xs: 0.5, md: 1 },
+                        overflow: { md: 'hidden' }
+                    }}
                 >
                     {component}
                 </Stack>

@@ -51,7 +51,7 @@ export default function PageCongiguration() {
             </Grid>
             <Stack
                 direction={'row'}
-                sx={{ gap: 2 }}
+                sx={{ gap: 2, flex: { xs: 1, md: 0 }, alignItems: 'flex-end' }}
             >
                 <Button
                     fullWidth
