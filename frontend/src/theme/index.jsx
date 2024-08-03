@@ -88,7 +88,7 @@ export const themeSettings = (mode) => {
                 main,
             },
             background: {
-                default: 'rgb(232,236,241)',
+                default: 'rgb(240,246,251)',
                 paper: 'rgb(245,250,255)',
                 // paper: 'rgb(235,240,243)',
             },

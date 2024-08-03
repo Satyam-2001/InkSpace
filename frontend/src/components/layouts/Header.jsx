@@ -71,10 +71,17 @@ export function HeaderContainer({ children, sx = {} }) {
 export function HeaderContent({ goBack = false, title = '' }) {
     const navigate = useNavigate()
 
+    const goBackHandler = () => {
+        if (typeof goBack === 'function') {
+            return goBack()
+        }
+        navigate(-1)
+    }
+
     const startComponent = (
-        <Stack direction='row' sx={{ gap: 2, alignItems: 'center' }}>
+        <Stack direction='row' sx={{ gap: { xs: 1, md: 2 }, alignItems: 'center' }}>
             {goBack && <IconButton
-                onClick={() => navigate(-1)}
+                onClick={goBackHandler}
             >
                 <ArrowBackIcon sx={{ fontSize: '36px' }} />
             </IconButton>}
@@ -96,31 +103,11 @@ export function HeaderContent({ goBack = false, title = '' }) {
     )
 }
 
-export default function Header({ title, goBack }) {
-    const navigate = useNavigate()
-
-    const startComponent = (
-        <Stack direction='row' sx={{ gap: 1, alignItems: 'center' }}>
-            {goBack && <IconButton
-                onClick={() => navigate(-1)}
-            >
-                <ArrowBackIcon sx={{ fontSize: '30px' }} />
-            </IconButton>}
-            {!title && <Logo />}
-            {title && <Heading>{title}</Heading>}
-        </Stack>
-    )
-    const endComponent = (
-        <Stack direction='row' sx={{ gap: 2, alignItems: 'center' }}>
-            {!title && <ThemeButton />}
-        </Stack>
-    )
+export default function Header(props) {
 
     return (
         <HeaderContainer>
-            {startComponent}
-            {/* <TopNavbar /> */}
-            {endComponent}
+            <HeaderContent {...props} />
         </HeaderContainer>
     )
 }

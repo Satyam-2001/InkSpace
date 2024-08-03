@@ -7,7 +7,7 @@ import { APP_BAR_HEIGHT } from '../../theme/styles'
 import SideNavbar from './Navbar/SideNavbar'
 
 
-export default function DynamicContainer({ children, header = {}, hideHeader, hideBottomNavbar, hideSideNavbar, ...props }) {
+export default function DynamicContainer({ children, header = {}, hideHeader, hideBottomNavbar, hideSideNavbar, sx = {}, ...props }) {
     const shortScreen = useMediaQuery(theme => theme.breakpoints.down('md'))
 
     const { goBack, title } = header
@@ -21,11 +21,11 @@ export default function DynamicContainer({ children, header = {}, hideHeader, hi
             <Root
                 sx={{
                     pt: APP_BAR_HEIGHT,
-                    pb: { xs: isBottomNavbar ? APP_BAR_HEIGHT : 0, md: 0 },
+                    pb: isBottomNavbar ? APP_BAR_HEIGHT : 0,
                 }}
             >
                 <Header {...header} />
-                <Stack sx={{ flex: 1, overflow: 'auto', p: 1 }}>
+                <Stack {...props} sx={{ flex: 1, overflow: 'auto', p: 0.5, ...sx }}>
                     {children}
                 </Stack>
                 {isBottomNavbar && <BottomNavbar />}
@@ -46,7 +46,7 @@ export default function DynamicContainer({ children, header = {}, hideHeader, hi
                 }}
             >
                 {isSideNavbar && <Stack pt={APP_BAR_HEIGHT}><SideNavbar /></Stack>}
-                <Stack sx={{ flex: 1, overflow: 'auto', gap: 1, pt: APP_BAR_HEIGHT }}>
+                <Stack {...props} sx={{ flex: 1, overflow: 'auto', gap: 1, pt: APP_BAR_HEIGHT, ...sx }}>
                     {title && <Stack px={1}><HeaderContent goBack={goBack} title={title} /></Stack>}
                     {children}
                 </Stack>

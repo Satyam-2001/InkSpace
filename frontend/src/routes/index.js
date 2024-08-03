@@ -5,6 +5,7 @@ import Container from "../components/layouts/Container";
 import Error from "../pages/Error";
 import Pages from "../pages/Pages";
 import CreatePage from "../pages/Pages/CreatePage";
+import EditImage from "../pages/Pages/CreatePage/EditImage";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,13 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'create',
-                        element: <CreatePage />
+                        element: <CreatePage />,
+                        children: [
+                            {
+                                path: 'edit',
+                                element: <EditImage />
+                            }
+                        ]
                     }
                 ]
             },

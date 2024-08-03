@@ -13,7 +13,12 @@ export default function InputField({ label, ...props }) {
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '10px', // Apply border radius to the root element
                     '& fieldset': {
+                        p: 1,
                         borderRadius: '10px', // Ensure the border radius is applied to the fieldset
+                    },
+                    '& .MuiInputBase-input': {
+                        py: 1.5,
+                        fontSize: '16px', // Change the font size here (example: 1.25rem, adjust as needed)
                     },
                 },
                 '& .MuiInputLabel-root': {

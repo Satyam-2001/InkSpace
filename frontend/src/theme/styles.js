@@ -3,7 +3,7 @@
 //     down: (value = 0) => 'inset -6px -6px 14px -5px rgba(255,255,255,0.06), inset 6px 6px 14px -5px rgba(0, 0, 0, 0.85)'
 // }
 
-import { Typography, styled } from "@mui/material"
+import { Stack, Typography, styled } from "@mui/material"
 
 export const APP_BAR_HEIGHT = '58px'
 export const SECONDARY_FONT_FAMILY = ["'Exo 2'", "sans-serif"].join(",")
@@ -18,6 +18,15 @@ export const Heading = styled(Typography)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
         fontSize: '1.8rem',
     },
+}))
+
+export const ModalStack = styled(Stack)(({ theme }) => ({
+    position: 'absolute',
+    boxShadow: 24,
+    overflow: 'hidden',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
 }))
 
 export function elevation(value = 0) {
