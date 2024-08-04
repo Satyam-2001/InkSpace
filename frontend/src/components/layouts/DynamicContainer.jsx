@@ -10,11 +10,10 @@ import SideNavbar from './Navbar/SideNavbar'
 export default function DynamicContainer({ children, header = {}, hideHeader, hideBottomNavbar, hideSideNavbar, sx = {}, ...props }) {
     const shortScreen = useMediaQuery(theme => theme.breakpoints.down('md'))
 
-    const { goBack, title } = header
-    const isCustomHeader = !title || shortScreen
-    const headerContent = <HeaderContent goBack={goBack} title={title} />
+    // const isCustomHeader = !title || shortScreen
     const isBottomNavbar = shortScreen && !hideBottomNavbar
     const isSideNavbar = !hideSideNavbar && !shortScreen
+    const { title } = header
 
     if (shortScreen) {
         return (
@@ -47,7 +46,11 @@ export default function DynamicContainer({ children, header = {}, hideHeader, hi
             >
                 {isSideNavbar && <Stack pt={APP_BAR_HEIGHT}><SideNavbar /></Stack>}
                 <Stack {...props} sx={{ flex: 1, overflow: 'auto', gap: 1, pt: APP_BAR_HEIGHT, ...sx }}>
-                    {title && <Stack px={1}><HeaderContent goBack={goBack} title={title} /></Stack>}
+                    {title && <Stack px={1} direction='row' sx={{
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 1,
+                    }}><HeaderContent {...header} /></Stack>}
                     {children}
                 </Stack>
             </Stack>

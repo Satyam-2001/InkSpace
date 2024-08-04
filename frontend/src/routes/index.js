@@ -4,8 +4,11 @@ import Home from "../pages/Home";
 import Container from "../components/layouts/Container";
 import Error from "../pages/Error";
 import Pages from "../pages/Pages";
-import CreatePage from "../pages/Pages/CreatePage";
-import EditImage from "../pages/Pages/CreatePage/EditImage";
+import CreatePage from "../pages/Pages/Page";
+import EditImage from "../pages/Pages/Page/EditImage";
+import AddPage from "../pages/Pages/AddPage";
+import EditPage from "../pages/Pages/EditPage";
+import Fonts from "../pages/Fonts";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +29,17 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'create',
-                        element: <CreatePage />,
+                        element: <AddPage />,
+                        children: [
+                            {
+                                path: 'edit',
+                                element: <EditImage />
+                            }
+                        ]
+                    },
+                    {
+                        path: ':pageId',
+                        element: <EditPage />,
                         children: [
                             {
                                 path: 'edit',
@@ -35,6 +48,10 @@ const router = createBrowserRouter([
                         ]
                     }
                 ]
+            },
+            {
+                path: 'fonts',
+                element: <Fonts />
             },
             {
                 path: '*',

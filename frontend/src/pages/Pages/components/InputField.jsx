@@ -1,11 +1,18 @@
 import { InputAdornment, InputBase, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { elevation } from '../../../theme/styles'
+import { useFormikContext } from 'formik'
 
 export default function InputField({ label, ...props }) {
+    const { values, handleChange, handleBlur } = useFormikContext()
+    const name = label.toLowerCase().replaceAll(' ', '_')
     return (
         <TextField
             fullWidth
+            value={values[name]}
+            name={name}
+            onChange={handleChange}
+            onBlur={handleBlur}
             label={label}
             sx={{
                 boxShadow: elevation(),

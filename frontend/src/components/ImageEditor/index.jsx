@@ -40,14 +40,14 @@ function ToolButton({ name, Icon, ...props }) {
             <Button
                 fullWidth
                 size='large'
-                sx={{ boxShadow: elevation(), color: 'text.primary', display: { xs: 'none', md: 'flex' } }}
-                startIcon={<Icon sx={{ fontSize: '24px' }} />}
+                sx={{ boxShadow: elevation(), color: 'white', display: { xs: 'none', md: 'flex' } }}
+                startIcon={<Icon sx={{ fontSize: '24px', color: 'white' }} />}
                 {...props}
             >
                 {name}
             </Button>
-            <IconButton sx={{ boxShadow: elevation(), borderRadius: '12px', p: 1, display: { md: 'none' } }} {...props}>
-                <Icon sx={{ fontSize: '22px' }} />
+            <IconButton sx={{ display: { md: 'none' } }} {...props}>
+                <Icon sx={{ fontSize: '24px', color: 'white', }} />
             </IconButton>
         </>
     )
@@ -69,7 +69,7 @@ function EditTools({ setRotate, setCrop, saveHandler }) {
         >
             <ToolButton name='Crop' Icon={CropIcon} onClick={setCrop} />
             <ToolButton name='Rotate Cw' Icon={Rotate90DegreesCwOutlinedIcon} onClick={() => setRotate(prop => prop + 90)} />
-            <ToolButton name='Rotate CCW' Icon={Rotate90DegreesCcwIcon} onClick={() => setRotate(prop => prop - 90)} />
+            <ToolButton name='Rotate CCW' Icon={Rotate90DegreesCcwIcon} onClick={() => setRotate(prop => prop + -90)} />
             {/* <Button fullWidth size='large' sx={{ boxShadow: elevation() }}>
                 Cancel
             </Button> */}
@@ -79,7 +79,6 @@ function EditTools({ setRotate, setCrop, saveHandler }) {
         </Stack>
     )
 }
-
 
 
 export default function ImageEditor({ open, image, onSave = () => { }, onClose = () => { } }) {
@@ -176,11 +175,26 @@ export default function ImageEditor({ open, image, onSave = () => { }, onClose =
         reader.readAsDataURL(blob);
     }
 
+    // const rotateHandler = (value) => {
+    //     console.log(crop, completedCrop)
+    //     const { width, height } = crop
+    //     const newCrop = centerAspectCrop(height, width, height / width)
+    //     setCrop(newCrop)
+    //     // setCompletedCrop(convertToPixelCrop(newCrop, height, width))
+    //     setCompletedCrop((prop) => ({
+    //         width: prop.height,
+    //         height: prop.width,
+    //         ...prop
+    //     }))
+    //     setRotate(prop => prop + value)
+    //     // setCrop(newCrop)
+    // }
+
     return (
         <Modal open={open} onClose={onClose}>
             <ModalStack sx={{ height: '100%', width: '100%', bgcolor: 'rgba(0, 0, 0, 0.8)', pt: APP_BAR_HEIGHT }}>
-                <HeaderContainer sx={{ bgcolor: 'transparent' }}>
-                    <HeaderContent goBack={onClose} title='Edit Image' />
+                <HeaderContainer sx={{ bgcolor: 'transparent', backdropFilter: 'none' }}>
+                    <HeaderContent goBack={onClose} title='Edit Image' sx_heading={{ color: 'white' }} />
                 </HeaderContainer>
                 {/* <DynamicContainer
                     hideBottomNavbar
@@ -190,6 +204,7 @@ export default function ImageEditor({ open, image, onSave = () => { }, onClose =
                     }}
                 > */}
                 <Stack
+                    // direction={{ md: 'row' }}
                     sx={{
                         flex: 1,
                         gap: { md: 3 },
@@ -200,27 +215,26 @@ export default function ImageEditor({ open, image, onSave = () => { }, onClose =
                             flex: 1,
                             alignItems: 'center',
                             justifyContent: { xs: 'center', md: undefined },
+                            px: 1,
                         }}
                     >
-
                         <Stack
                             component={ReactCrop}
                             crop={crop}
                             onChange={(_, percentCrop) => setCrop(percentCrop)}
                             onComplete={(c) => setCompletedCrop(c)}
                             aspect={aspect}
+                            // minWidth={400}
                             minHeight={100}
                             sx={{
-                                maxHeight: { xs: '78vh', md: '75vh' },
-                                width: 'auto', // Allow width to adjust based on content (img)
-                                flex: 1,
+                                maxHeight: { xs: '80vh', md: '75vh' },
+                                maxWidth: '100vw',
                                 border: 1,
                                 borderColor: 'divider',
                                 boxShadow: elevation(),
-                                display: 'flex',
-                                alignItems: 'center', // Center the image vertically if needed
-                                justifyContent: 'center', // Center the image horizontally if needed
+                                // transform: `scale(${scale}) rotate(${rotate}deg)`
                             }}
+                        // circularCrop
                         >
                             <img
                                 ref={imgRef}

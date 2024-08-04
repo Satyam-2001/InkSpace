@@ -1,5 +1,5 @@
 import React from 'react'
-import PageItemContainer from './components/PageItemContainer'
+import PageItemContainer from './PageItemContainer'
 import { Stack, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useNavigate } from 'react-router-dom';

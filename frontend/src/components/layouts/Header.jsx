@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react'
-import { AppBar, Avatar, Box, IconButton, Stack, useTheme } from '@mui/material'
+import { AppBar, Avatar, Box, IconButton, Stack, styled, useTheme } from '@mui/material'
 import { APP_BAR_HEIGHT, Heading, elevation } from '../../theme/styles'
 
 import logo from '../../assets/logo.png'
@@ -12,14 +12,17 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom'
 import chroma from 'chroma-js'
 
+export const HeaderIconButton = styled(IconButton)(({ theme }) => ({
+    boxShadow: elevation(), borderRadius: '16px', p: 1.2
+}))
 
 function ThemeButton() {
     const { toggleMode, mode } = useContext(ColorModeContext)
 
     return (
-        <IconButton onClick={toggleMode} sx={{ boxShadow: elevation(), borderRadius: '16px', p: 1.2 }}>
+        <HeaderIconButton onClick={toggleMode}>
             {mode === 'dark' ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
-        </IconButton>
+        </HeaderIconButton>
     )
 }
 
@@ -56,8 +59,8 @@ export function HeaderContainer({ children, sx = {} }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                flexDirection: 'row',
                 gap: 1,
+                flexDirection: 'row',
                 py: 1,
                 px: { xs: 2, md: 4 },
                 ...sx
@@ -68,7 +71,7 @@ export function HeaderContainer({ children, sx = {} }) {
     )
 }
 
-export function HeaderContent({ goBack = false, title = '' }) {
+export function HeaderContent({ goBack = false, title = '', sx_heading = {}, endChildren }) {
     const navigate = useNavigate()
 
     const goBackHandler = () => {
@@ -83,15 +86,16 @@ export function HeaderContent({ goBack = false, title = '' }) {
             {goBack && <IconButton
                 onClick={goBackHandler}
             >
-                <ArrowBackIcon sx={{ fontSize: '36px' }} />
+                <ArrowBackIcon sx={{ fontSize: '36px', ...sx_heading }} />
             </IconButton>}
             {!title && <Logo />}
-            {title && <Heading>{title}</Heading>}
+            {title && <Heading sx={sx_heading}>{title}</Heading>}
         </Stack>
     )
     const endComponent = (
         <Stack direction='row' sx={{ gap: 2, alignItems: 'center' }}>
             {!title && <ThemeButton />}
+            {endChildren}
         </Stack>
     )
 

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import MarginInputField from '../components/MarginInputField';
 import InputField from '../components/InputField';
 import HeightIcon from '@mui/icons-material/Height';
+import { useFormikContext } from 'formik';
 
 const marginItem = [
     {
@@ -27,8 +28,48 @@ const marginItem = [
     }
 ]
 
-export default function PageCongiguration() {
+function AddPageActionButtons() {
+    const { handleSubmit, isSubmitting } = useFormikContext()
     const navigate = useNavigate()
+
+    const closeHandler = () => {
+        navigate(-1)
+    }
+
+    const saveHandler = async () => {
+        handleSubmit()
+        closeHandler()
+    }
+
+    return (
+        <Stack
+            direction={'row'}
+            sx={{ gap: 2, flex: { xs: 1, md: 0 }, alignItems: 'flex-end' }}
+        >
+            <Button
+                fullWidth
+                size='large'
+                onClick={closeHandler}
+                sx={{ boxShadow: elevation(-1) }}
+            >
+                Cancel
+            </Button >
+            <Button
+                fullWidth
+                size='large'
+                variant='contained'
+                sx={{ boxShadow: elevation() }}
+                type='submit'
+                onClick={saveHandler}
+                disabled={isSubmitting}
+            >
+                {isSubmitting ? 'Saving...' : 'Save'}
+            </Button>
+        </Stack>
+    )
+}
+
+export default function PageCongiguration() {
     return (
         <Stack sx={{ gap: { xs: 2.5, md: 3.5 }, overflow: 'auto', flex: 1 }}>
             <Heading sx={{ fontSize: { xs: '1.3rem' }, px: 0.5 }}>Page Configuration</Heading>
@@ -49,27 +90,7 @@ export default function PageCongiguration() {
                     />
                 </Grid>
             </Grid>
-            <Stack
-                direction={'row'}
-                sx={{ gap: 2, flex: { xs: 1, md: 0 }, alignItems: 'flex-end' }}
-            >
-                <Button
-                    fullWidth
-                    size='large'
-                    onClick={() => navigate(-1)}
-                    sx={{ boxShadow: elevation(-1) }}
-                >
-                    Cancel
-                </Button >
-                <Button
-                    fullWidth
-                    size='large'
-                    variant='contained'
-                    sx={{ boxShadow: elevation() }}
-                >
-                    Save
-                </Button>
-            </Stack>
+            <AddPageActionButtons />
         </Stack>
     )
 }

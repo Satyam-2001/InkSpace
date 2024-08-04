@@ -6,6 +6,7 @@ import chroma from 'chroma-js'
 const fontFamily = ["Lexend", "sans-serif"].join(",")
 
 export const themeSettings = (mode) => {
+    const isLight = mode === 'light'
     const color = (mode === 'light' ? 'black' : 'white')
     const typography = {
         allVariants: {
@@ -45,7 +46,6 @@ export const themeSettings = (mode) => {
     // const main = '#DF275D'
     // const main = '#f285e9' //girl
     const main = '#0a6efa' //boy
-    const active = chroma(main).alpha(0.5).hex()
 
     const components = {
         MuiSvgIcon: {
@@ -57,21 +57,23 @@ export const themeSettings = (mode) => {
         },
     }
 
-    const darkTheme = createTheme({
+
+    const theme = createTheme({
         palette: {
-            mode: 'dark',
+            mode,
             primary: {
                 main,
             },
-            background: {
-                // default: 'rgb(32,35,41)',
-                // paper: 'rgb(30,32,39)',
-                default: 'rgb(18,18,18)',
-                paper: 'rgb(23,23,23)',
+            secondary: {
+                main: 'rgb(112, 27, 247)',
             },
             action: {
-                active,
+                active: chroma(main).alpha(0.5).hex(),
                 hover: 'rgba(100, 100, 100, 0.12)'
+            },
+            background: {
+                default: isLight ? 'rgb(240,246,251)' : 'rgb(18,18,18)',
+                paper: isLight ? 'rgb(245,250,255)' : 'rgb(23,23,23)',
             },
             grey: {
                 A100: '#1f1f1f'
@@ -81,30 +83,7 @@ export const themeSettings = (mode) => {
         components,
     })
 
-    const lightTheme = createTheme({
-        palette: {
-            mode,
-            primary: {
-                main,
-            },
-            background: {
-                default: 'rgb(240,246,251)',
-                paper: 'rgb(245,250,255)',
-                // paper: 'rgb(235,240,243)',
-            },
-            action: {
-                active,
-                hover: 'rgba(100, 100, 100, 0.12)'
-            },
-            grey: {
-                A100: '#f6f6f6'
-            }
-        },
-        typography,
-        components,
-    })
-
-    return mode === 'dark' ? darkTheme : lightTheme;
+    return theme
 };
 
 
