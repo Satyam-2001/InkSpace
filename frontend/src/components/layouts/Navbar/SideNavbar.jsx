@@ -6,7 +6,7 @@ import { APP_BAR_HEIGHT, elevation } from '../../../theme/styles'
 import MenuOpenOutlinedIcon from '@mui/icons-material/MenuOpenOutlined';
 import { WEBSITE_NAME } from '../../../data/constant'
 
-const transition = 'width 0.4s ease, transform 0.4s ease'
+const transition = 'width 0.4s ease, transform 0.4s ease, padding 0.4s ease'
 
 function SideNavbarHeader({ expand, toggleExpandHandler }) {
     return (
@@ -110,7 +110,8 @@ export default function SideNavbar() {
         <Stack
             sx={{
                 height: '100%',
-                p: 1.25,
+                pt: 1.5,
+                px: expand ? 3 : 1.25,
                 gap: 1.8,
                 boxShadow: elevation(),
                 bgcolor: 'background.paper',
@@ -118,6 +119,7 @@ export default function SideNavbar() {
                 width: expand ? '280px' : '80px',
                 transition,
                 overflow: 'hidden',
+                transition,
             }}
         >
             <SideNavbarHeader expand={expand} toggleExpandHandler={toggleExpandHandler} />

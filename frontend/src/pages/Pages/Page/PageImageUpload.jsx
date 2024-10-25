@@ -55,8 +55,7 @@ const PageImage = styled(Box)(({ theme }) => ({
     maxWidth: 'calc(100% - 16px)',
     maxHeight: 'calc(100% - 16px)',
     objectFit: 'contain',
-    border: 1,
-    borderColor: 'divider',
+    border: `1px solid ${theme.palette.divider}`,
 }))
 
 export default function PageImageUpload() {

@@ -21,7 +21,7 @@ const PageStack = styled(Stack)(({ theme }) => ({
         left: 0,
         right: 0,
         height: '30%', // Adjust the height as needed for the gradient area
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 90%)',
+        background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 90%)',
         zIndex: 1,
         borderRadius: '12px',
     },

@@ -26,7 +26,7 @@ export default function Pages() {
             {isPending && <CircularProgress />}
             {!isPending && <Grid container spacing={{ xs: 1, sm: 1.5 }} sx={{ p: { xs: 0.5, sm: 1 } }} >
                 <AddPageItem />
-                {pages.map((props) => <PageItem key={props.name} {...props} />)}
+                {pages.slice().reverse().map((props) => <PageItem key={props.name} {...props} />)}
             </Grid>}
         </DynamicContainer>
     )

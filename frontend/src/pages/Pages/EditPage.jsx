@@ -33,31 +33,23 @@ export default function EditPage() {
             values={data}
             saveHandler={(data) => updatePage(pageId, data)}
             endHeader={
-                data && !data.sample ?
-                    <>
-                        <HeaderIconButton
-                            sx={{ display: { md: 'none' } }}
-                            onClick={deleteHandler}
-                        >
-                            <DeleteOutlineIcon />
-                        </HeaderIconButton>
-                        <Button
-                            size='large'
-                            variant='outlined'
-                            startIcon={<DeleteOutlineIcon sx={{ color: 'primary.main' }} />}
-                            sx={{ display: { xs: 'none', md: 'flex' } }}
-                            onClick={deleteHandler}
-                        >
-                            Delete
-                        </Button>
-                    </> :
-                    <>
-                    <Stack sx={{boxShadow: elevation(-1), py: 1, px: 1.5, borderRadius: '16px'}}>
-                        <Typography sx={{fontSize: '16px', color: 'primary.main'}}>
-                            Sample Page
-                        </Typography>
-                    </Stack>
-                    </>
+                <>
+                    <HeaderIconButton
+                        sx={{ display: { md: 'none' } }}
+                        onClick={deleteHandler}
+                    >
+                        <DeleteOutlineIcon />
+                    </HeaderIconButton>
+                    <Button
+                        size='large'
+                        variant='outlined'
+                        startIcon={<DeleteOutlineIcon sx={{ color: 'primary.main' }} />}
+                        sx={{ display: { xs: 'none', md: 'flex' } }}
+                        onClick={deleteHandler}
+                    >
+                        Delete
+                    </Button>
+                </>
             }
         />
     )
